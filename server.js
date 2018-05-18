@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const pg = require('pg');
 const noteController = require ('./controllers/noteController');
+const userController = require ('./controllers/userController');
 
 const URI = process.env.DBURI;
 const app = express();
@@ -25,9 +26,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.post('/postdata', noteController.postdata);
+
 app.get('/getdata', noteController.getdata);
 
-// app.post('/signup', )
+app.post('/signup', userController.createUser, userController.checkUser);
+
+app.post('/login', userController.verifyUser);
 
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
