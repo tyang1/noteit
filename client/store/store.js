@@ -1,7 +1,12 @@
-import { createStore } from "redux";
-import reducers from "./reducers";
-import Immutable from "immutable";
+import { createStore, applyMiddleware } from 'redux';
+import Immutable from 'immutable';
+import thunk from 'redux-thunk';
+import reducers from './reducers';
 
-const store = initialState => createStore(reducers, initialState);
-
-export default store;
+export default function configureStore(initialState) {
+  return createStore(
+    reducers,
+    initialState,
+    applyMiddleware(thunk),
+  );
+}
