@@ -1,16 +1,14 @@
 const pg = require('pg');
 const URI = process.env.DBURI;
 
-
-
 const noteController = {
 
-  postdata : (req, res, next) => {
-    pg.connect(URI, (err, db) =>{
+  postdata: (req, res, next) => {
+    pg.connect(URI, (err, db) => {
       let PromiseArray = [];
-      let {code, title, did, date_prod, kind, len} = req.body
+      let { code, title, did, date_prod, kind, len } = req.body
       let promise = new Promise((resolve, reject) => {
-        let q = 'INSERT INTO films(code, title, did, date_prod, kind, len) VALUES ('$(code)', '$(title)', '$(did)', '$(date_prod)', '$(kind)', '$(len)');';
+        let q = `INSERT INTO films(code, title, did, date_prod, kind, len) VALUES ('$(code)', '$(title)', '$(did)', '$(date_prod)', '$(kind)', '$(len)');`;
         console.log("Our query is read: ", q);
 
         db.query(q, (err, results) => {
@@ -18,11 +16,18 @@ const noteController = {
           resolve();
         });
       });
-      
-    }
+
+      Promise.all(promise)
+        .then(() => {
+          console.log("Promise got resolved");
+          db.end()
+        })
+        .catch((err) => {
+          console.log("Error V&J", err)
+        });
+    })
+
   }
-
-
 
 }
 
