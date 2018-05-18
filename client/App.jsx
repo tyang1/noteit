@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import Main from "/Main.jsx";
+import Main from "./Main.jsx";
 
 class App extends Component {
   constructor(props) {
