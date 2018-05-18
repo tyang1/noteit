@@ -1,46 +1,33 @@
+'use strict';
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const pg = require('pg');
+const noteController = require ('./controllers/noteController');
 
 require('dotenv').config();
 const app = express();
 
-const { Pool, Client } = require('pg')
-const connectionString = `
-postgres://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`;
+const PORT = 5535;
 
-
-// const pool = new Pool({
-//   connectionString: connectionString,
-// })
-
-// pool.query('SELECT * FROM films', (err, res) => {
-//   console.log(err, res)
-//   pool.end()
-// });
-
-const client = new Client({
-  connectionString: connectionString,
-});
-client.connect()
-
-client.query('SELECT * FROM films', (err, res) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(res.rows);
-  }
-  client.end()
-});
-
-app.get()
-
-
-// app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
-app.use(express.static(__dirname, 'build'));
+//const server = http.createServer(app);
 
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
+app.post('/postdata', noteController.postdata);
+app.get('/getdata', noteController.getdata);
 
+// app.post('/signup', )
+
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'build/index.html')));
+// app.use(express.static(__dirname, 'build'));
