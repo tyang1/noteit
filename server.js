@@ -1,10 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const pg = require('pg');
 
 require('dotenv').config();
 const app = express();
+
+const { Pool, Client } = require('pg')
+const connectionString = `
+postgres://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`;
+
 
 // const pool = new Pool({
 //   connectionString: connectionString,
@@ -15,15 +19,9 @@ const app = express();
 //   pool.end()
 // });
 
-const client = new pg.Client({
-  user: process.env.PGUSER,
-  password: process.env.PGPASSWORD,
-  database: process.env.PGDATABASE,
-  port: process.env.PGPORT,
-  host: process.env.PGHOST,
-  ssl: true
+const client = new Client({
+  connectionString: connectionString,
 });
-
 client.connect()
 
 client.query('SELECT * FROM films', (err, res) => {
@@ -35,12 +33,11 @@ client.query('SELECT * FROM films', (err, res) => {
   client.end()
 });
 
-// ROUTES
+app.get()
 
 
-const PORT = 5535;
-
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+// app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+app.use(express.static(__dirname, 'build'));
 
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
 
