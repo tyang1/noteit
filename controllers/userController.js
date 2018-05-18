@@ -1,4 +1,4 @@
-import { readdirSync } from 'fs';
+
 
 const pg = require('pg');
 require('dotenv').config();
