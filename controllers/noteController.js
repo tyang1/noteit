@@ -45,25 +45,20 @@ const noteController = {
     });
   },
 
-  getNotesByUser: {
+  // getNotesByUser: {
+  // },
 
-  },
+  // getNoteByID: {
+  // },
 
-  getNoteByID: {
+  // createNote: {
+  // },
 
-  },
+  // deleteNote: {
+  // },
 
-  createNote: {
-
-  },
-
-  deleteNote: {
-
-  },
-
-  updateNote: {
-
-  }
+  // updateNote: {
+  // }
 
 }
 
