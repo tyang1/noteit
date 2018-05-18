@@ -6,7 +6,7 @@ const path = require('path');
 const pg = require('pg');
 const noteController = require ('./controllers/noteController');
 
-const URI = process.env.DBURI;
+require('dotenv').config();
 const app = express();
 
 const PORT = 5535;
@@ -29,13 +29,4 @@ app.get('/getdata', noteController.getdata);
 
 // app.post('/signup', )
 
-
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
-
-
-
-
-
-
-
-
