@@ -20,4 +20,5 @@ const NoteComponent = props => {
       </div>
   )
 };
-export default NOteComponent;
+
+export default NoteComponent;

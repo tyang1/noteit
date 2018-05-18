@@ -2,13 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
+import NoteComponent from "../components/NoteComponent.jsx";
+
 import {
-  myFirstAction,
+  addNote,
 } from "../modules/App";
-import NoteComponent from "../components/NoteComponent";
 
 const mapActionCreators = {
-  myFirstAction
+  addNote,
 };
 
 const mapStateToProps = state => ({

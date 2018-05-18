@@ -5,6 +5,7 @@ export const DELETE_NOTE = "DELETE_NOTE";
 export const EDIT_NOTE = "EDIT_NOTE";
 
 const defaultState = Immutable.fromJS({
+  label: ['sign', 'log'],
   value1: "value",
   loggedIn: false,
   username: ""
@@ -27,6 +28,7 @@ export function addNote(url, noteData) {
   return dispatch => {
     return dispatch({
       type: ADD_NOTE,
+      // post request to database ---- whatever it returns i want payload to =
       payload: {
         url,
         noteData
@@ -54,7 +56,7 @@ export const actions = {
 };
 
 const ACTION_HANDLERS = {
-  [ADD_NOTE]: (state, action) => state.set("value1", action.payload),
+  [ADD_NOTE]: (state, action) => state.set("username", action.payload),
   [DELETE_NOTE]: (state, action) => state.set("value1", action.payload),
   [EDIT_NOTE]: (state, action) => state.set("value1", action.payload)
 };
