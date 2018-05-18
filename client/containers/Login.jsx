@@ -7,11 +7,11 @@ import NoteComponent from "../components/NoteComponent.jsx";
 
 
 import {
-  addNote,
+  createUser,
 } from "../modules/App";
 
 const mapActionCreators = {
-  addNote
+  createUser
 };
 
 const mapStateToProps = state => ({
@@ -25,9 +25,9 @@ class Login extends React.Component {
   render() {
     const labels = [];
     this.props.label.map((element, index) => {
-      labels.push(<Sign label={element} />);
+      labels.push(<Sign label={element} createUser={this.props.createUser} />);
     });
-    return <div>{labels}</div>;
+    return <div id="login-page">{labels}</div>;
   }
 }
 

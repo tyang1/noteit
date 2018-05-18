@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const pg = require('pg');
 const noteController = require ('./controllers/noteController');
+const userController = require ('./controllers/userController');
 
 require('dotenv').config();
 const app = express();
@@ -22,12 +23,29 @@ app.use((req, res, next) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.post('/postdata', noteController.postdata);
-app.get('/getdata', noteController.getdata);
+// User routing
+app.post('/signup', userController.createUser, userController.checkUser);
+app.post('/login', userController.verifyUser);
 
-// app.post('/signup', )
+// Note routing
+// get all notes (for testing purposes)
+app.get('/notes/all', noteController.getAllNotes);
+
+// get one note by note id
+// app.get('/notes/:note_id', );
+
+// get all notes belonging to one user
+//  app.get('/notes/:user_id', );
+
+// create a note
+// app.post('/notes/create', );
+
+// update a note
+// app.put('/notes/:note_id', );
+
+// delete a note
+// app.delete('/notes/:note_id', );
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-// app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'build/index.html')));
 

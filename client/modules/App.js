@@ -1,5 +1,7 @@
 import Immutable from "immutable";
+import axios from "axios";
 
+export const CREATE_USER = 'CREATE_USER';
 export const ADD_NOTE = "ADD_NOTE";
 export const DELETE_NOTE = "DELETE_NOTE";
 export const EDIT_NOTE = "EDIT_NOTE";
@@ -16,6 +18,7 @@ const defaultState = Immutable.fromJS({
   //   }},
 });
 
+<<<<<<< HEAD
 export function deleteNote(url) {
   fetch(, {
     method = "DELETE"
@@ -24,6 +27,27 @@ export function deleteNote(url) {
   }).then((jsonRes) => {
     //use the jsonRes.username and remove the element from the noteList
   })
+=======
+export function createUser(event) {
+  event.preventDefault();
+  return dispatch => {
+    axios
+      .post("/signup", {
+        name: event.target.username.value,
+        password: event.target.password.value,
+      })
+      .then(res => {
+        console.log("res", res);
+        return dispatch({
+          type: ADD_USER,
+          payload: res // expecting boolean
+        });
+      });
+  };
+}
+
+export function deleteNote(noteId) {
+>>>>>>> 4f5f9c1d35217e2a938dd453ce71d014eb9414b7
   return dispatch => {
     return dispatch({
       type: DELETE_NOTE,
@@ -86,7 +110,12 @@ export const actions = {
 };
 
 const ACTION_HANDLERS = {
+<<<<<<< HEAD
   [ADD_NOTE]: (state, action) => state.set("noteList", action.payload),
+=======
+  [CREATE_USER]: (state, action) => state.set("loggedIn", action.payload),
+  [ADD_NOTE]: (state, action) => state.set("username", action.payload),
+>>>>>>> 4f5f9c1d35217e2a938dd453ce71d014eb9414b7
   [DELETE_NOTE]: (state, action) => state.set("value1", action.payload),
   [EDIT_NOTE]: (state, action) => state.set("value1", action.payload)
 };
