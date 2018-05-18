@@ -1,0 +1,65 @@
+import Immutable from "immutable";
+
+export const ADD_NOTE = "ADD_NOTE";
+export const DELETE_NOTE = "DELETE_NOTE";
+export const EDIT_NOTE = "EDIT_NOTE";
+
+const defaultState = Immutable.fromJS({
+  value1: "value",
+  loggedIn: false,
+  username: ""
+  //   noteList: { 'www.wikipedia.com': {
+  //       img: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/Note.svg',
+
+  //   }},
+});
+
+export function deleteNote(noteId) {
+  return dispatch => {
+    return dispatch({
+      type: DELETE_NOTE,
+      payload: noteId
+    });
+  };
+}
+
+export function addNote(url, noteData) {
+  return dispatch => {
+    return dispatch({
+      type: ADD_NOTE,
+      payload: {
+        url,
+        noteData
+      }
+    });
+  };
+}
+
+export function editNote(url, noteData) {
+  return dispatch => {
+    return dispatch({
+      type: EDIT_NOTE,
+      payload: {
+        url,
+        noteData
+      }
+    });
+  };
+}
+
+export const actions = {
+  addNote,
+  deleteNote,
+  editNote
+};
+
+const ACTION_HANDLERS = {
+  [ADD_NOTE]: (state, action) => state.set("value1", action.payload),
+  [DELETE_NOTE]: (state, action) => state.set("value1", action.payload),
+  [EDIT_NOTE]: (state, action) => state.set("value1", action.payload)
+};
+
+export default function appReducer(state = defaultState, action) {
+  const handler = ACTION_HANDLERS[action.type];
+  return handler ? handler(state, action) : state;
+}

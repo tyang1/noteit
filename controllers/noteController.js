@@ -16,8 +16,6 @@ client.connect(function(err) {
 })
 
 
-
-
 const noteController = {
 
   postdata : (req, res) => {
