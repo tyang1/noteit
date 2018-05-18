@@ -24,8 +24,8 @@ class Home extends React.Component {
   render() {
     return (
       <div id="home">
-        <NoteComponent />
-        <NoteCreate />
+        <NoteComponent deleteNote = {props.deleteNote} editNote={props.editNote} />
+        <NoteCreate addNote = {props.addNote} />
       </div>
     );
   }

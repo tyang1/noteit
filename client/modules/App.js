@@ -5,45 +5,75 @@ export const DELETE_NOTE = "DELETE_NOTE";
 export const EDIT_NOTE = "EDIT_NOTE";
 
 const defaultState = Immutable.fromJS({
-  label: ['sign', 'log'],
+  label: ["sign", "log"],
   value1: "value",
   loggedIn: false,
-  username: ""
+  username: "",
+  noteList: []
   //   noteList: { 'www.wikipedia.com': {
   //       img: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/Note.svg',
 
   //   }},
 });
 
-export function deleteNote(noteId) {
+export function deleteNote(url) {
+  fetch(, {
+    method = "DELETE"
+  }).then(response => {
+    return response.json()
+  }).then((jsonRes) => {
+    //use the jsonRes.username and remove the element from the noteList
+  })
   return dispatch => {
     return dispatch({
       type: DELETE_NOTE,
-      payload: noteId
+      payload: noteList
     });
   };
 }
 
-export function addNote(url, noteData) {
+export function addNote(url) {
+  const newNote = {
+    noteID: "",
+    html: "",
+    css: "",
+    createdAt: "",
+    title: ""
+  };
+  // noteList = state.get(noteList).slice();
+  fetch(url, {
+    method: "POST"
+  })
+    .then(response => {
+      return response.json();
+    })
+    .then(jsonRes => {
+      newNote.noteID = jsonRes.noteID;
+      newNote.html = jsonRes.html;
+      newNote.css = jsonRes.css;
+      newNote.createdAt = jsonRes.createdAt;
+      newNotes.title = jsonRes.title;
+    });
+  noteList = state.app.toJS().noteList.slice();
+  noteList.push(newNote);
   return dispatch => {
     return dispatch({
       type: ADD_NOTE,
       // post request to database ---- whatever it returns i want payload to =
       payload: {
-        url,
-        noteData
+        noteList
       }
     });
   };
 }
 
-export function editNote(url, noteData) {
+export function editNote(url) {
+  fetch(url);
   return dispatch => {
     return dispatch({
       type: EDIT_NOTE,
       payload: {
-        url,
-        noteData
+        noteList
       }
     });
   };
@@ -56,7 +86,7 @@ export const actions = {
 };
 
 const ACTION_HANDLERS = {
-  [ADD_NOTE]: (state, action) => state.set("username", action.payload),
+  [ADD_NOTE]: (state, action) => state.set("noteList", action.payload),
   [DELETE_NOTE]: (state, action) => state.set("value1", action.payload),
   [EDIT_NOTE]: (state, action) => state.set("value1", action.payload)
 };
