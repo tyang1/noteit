@@ -1,11 +1,12 @@
 import Immutable from "immutable";
+import axios from "axios";
 
 export const ADD_NOTE = "ADD_NOTE";
 export const DELETE_NOTE = "DELETE_NOTE";
 export const EDIT_NOTE = "EDIT_NOTE";
 
 const defaultState = Immutable.fromJS({
-  label: ['sign', 'log'],
+  label: ["sign", "log"],
   value1: "value",
   loggedIn: false,
   username: ""
@@ -14,6 +15,24 @@ const defaultState = Immutable.fromJS({
 
   //   }},
 });
+
+export function createUser(event) {
+  event.preventDefault();
+  return dispatch => {
+    axios
+      .post("/signup", {
+        name: event.target.username.value,
+        password: event.target.password.value
+      })
+      .then(res => {
+        console.log("res", res);
+        return dispatch({
+          type: ADD_USER,
+          payload: res // expecting boolean
+        });
+      });
+  };
+}
 
 export function deleteNote(noteId) {
   return dispatch => {

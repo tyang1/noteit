@@ -1,11 +1,14 @@
 import React, { PropTypes } from "react";
+
 const Sign = props => {
+  let sign = false;
+  if (props.label === "sign") sign = true;
   return (
     <div id="log">
-      <form method="post">
+      <form class="user-form" onSubmit={props.createUser}>
         <label>{props.label}</label>
-        <input type="text" name="user" placeholder="username" />
-        <input type="text" name="pwd" placeholder="password" />
+        <input type="text" name="username" placeholder="username" />
+        <input type="password" name="password" placeholder="password" />
         <button id="submit">Submit</button>
       </form>
     </div>
