@@ -1,5 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+
+import Sign from '../components/Sign.jsx';
+import NoteComponent from "../components/NoteComponent.jsx";
+
+
+import {
+  addNote,
+} from "../modules/App";
+
+const mapActionCreators = {
+  addNote
+};
+
+const mapStateToProps = state => ({
+  label: state.app.toJS().label
+});
 
 class Login extends React.Component {
   constructor(props) {
@@ -7,11 +24,12 @@ class Login extends React.Component {
   }
   render() {
     const labels = [];
-    props.label.map((element, index) => {
+    this.props.label.map((element, index) => {
       labels.push(<Sign label={element} />);
     });
     return <div>{labels}</div>;
   }
 }
 
-export default Login;
+export default connect(mapStateToProps, mapActionCreators)(Login);
+
