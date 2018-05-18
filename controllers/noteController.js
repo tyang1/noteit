@@ -1,3 +1,15 @@
+/*
+  _id         serial PRIMARY KEY,
+  title       VARCHAR(255),
+  url         TEXT,
+  html        TEXT,
+  css         TEXT,
+  user_id     INTEGER NOT NULL,
+  created_at  timestamptz DEFAULT now(),
+  updated_at  timestamptz DEFAULT now(),
+  FOREIGN KEY (user_id) REFERENCES users (_id)
+*/
+
 const pg = require('pg');
 require('dotenv').config();
 const bodyParser = require('body-parser');
@@ -11,55 +23,43 @@ const client = new pg.Client({
   ssl: true
 });
 
-client.connect(function(err) {
-  if(err) console.log("client connect: ", err);
-})
+client.connect(function (err) {
+  if (err) {
+    console.log("client connect: ", err);
+  }
+});
 
 
 const noteController = {
 
-  postdata : (req, res) => {
-    console.log(req.body);
+  getAllNotes(req, res) {
+    console.log('hitting getAllNotes in notesController');
 
-    
-      let {code, title, did, date_prod, kind, len} = req.body;
-      // let promise = new Promise((resolve, reject) => {
-        let q = `INSERT INTO films(code, title, "did", date_prod, kind, len) VALUES ('${code}', '${title}', '${did}', '${date_prod}', '${kind}', '${len}' );`;
-        console.log("Our query is read: ", q);
+    client.query('SELECT * FROM notes', (err, results) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(results);
+      }
+      client.end();
+    });
+  },
 
-        client.query(q, (err, results) => {
-          if (err) console.log(err)
-          else console.log(results);
-          // resolve();
-        });
-      // });
-  // Promise.all(promise)
-  // .then(() => {
-  //   console.log("Promise got resolved");
-  //   db.end()
-  // })
-  // .catch((err) => {
-  //   console.log("Error promise", err)});
-},
+  // getNotesByUser: {
+  // },
 
-  getdata : (req, res) => {
+  // getNoteByID: {
+  // },
 
-  client.query('SELECT * FROM ', (err, res) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(res.rows);
-  }
-  client.end()
-});
-  }
+  // createNote: {
+  // },
+
+  // deleteNote: {
+  // },
+
+  // updateNote: {
+  // }
+
 }
 
 module.exports = noteController; 
-
-
-
-// INSERT INTO films VALUES
-//     ('UA502', 'Bananas', 105, '1971-07-13', 'Comedy', '82 minutes');
-//        code  |  title  | did  | date_prod  |  kind  |   len  
-
