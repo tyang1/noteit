@@ -1,6 +1,7 @@
 import Immutable from "immutable";
 import axios from "axios";
 
+export const CREATE_USER = 'CREATE_USER';
 export const ADD_NOTE = "ADD_NOTE";
 export const DELETE_NOTE = "DELETE_NOTE";
 export const EDIT_NOTE = "EDIT_NOTE";
@@ -22,7 +23,7 @@ export function createUser(event) {
     axios
       .post("/signup", {
         name: event.target.username.value,
-        password: event.target.password.value
+        password: event.target.password.value,
       })
       .then(res => {
         console.log("res", res);
@@ -75,6 +76,7 @@ export const actions = {
 };
 
 const ACTION_HANDLERS = {
+  [CREATE_USER]: (state, action) => state.set("loggedIn", action.payload),
   [ADD_NOTE]: (state, action) => state.set("username", action.payload),
   [DELETE_NOTE]: (state, action) => state.set("value1", action.payload),
   [EDIT_NOTE]: (state, action) => state.set("value1", action.payload)

@@ -1,5 +1,24 @@
 body {
-    background-image: url('http://longwallpapers.com/Desktop-Wallpaper/hello-kitty-wallpapers-free-For-Desktop-Wallpaper.jpg');
-    background-size: 100%;
-    background-repeat: no-repeat;
+  background-image: url("http://longwallpapers.com/Desktop-Wallpaper/hello-kitty-wallpapers-free-For-Desktop-Wallpaper.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+#login-page {
+  margin-top: 10%;
+  .user-form {
+    margin-left: 20%;
+    align-content: center;
+    input {
+      height: 25px;
+      font-size: 18px;
+      width: 25%;
+      margin-right: 15px;
+    }
+    button {
+      border-radius: 3px;
+      width: 75px;
+      height: 25px;
+      text-align: center;
+    }
+  }
 }
