@@ -31,7 +31,7 @@ export function createUser(event) {
   event.preventDefault();
   return dispatch => {
     axios
-      .post("/signup", {
+      .post("signup", {
         name: event.target.username.value,
         password: event.target.password.value,
       })
