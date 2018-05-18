@@ -1,3 +1,15 @@
+/*
+  _id         serial PRIMARY KEY,
+  title       VARCHAR(255),
+  url         TEXT,
+  html        TEXT,
+  css         TEXT,
+  user_id     INTEGER NOT NULL,
+  created_at  timestamptz DEFAULT now(),
+  updated_at  timestamptz DEFAULT now(),
+  FOREIGN KEY (user_id) REFERENCES users (_id)
+*/
+
 const pg = require('pg');
 require('dotenv').config();
 const bodyParser = require('body-parser');
@@ -19,6 +31,19 @@ client.connect(function (err) {
 
 
 const noteController = {
+
+  getAllNotes(req, res) {
+    console.log('hitting getAllNotes in notesController');
+
+    client.query('SELECT * FROM notes', (err, results) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(results);
+      }
+      client.end();
+    });
+  },
 
   getNotesByUser: {
 
