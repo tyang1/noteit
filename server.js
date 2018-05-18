@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const pg = require('pg');
 const noteController = require ('./controllers/noteController');
+const userController = require ('./controllers/userController');
 
 require('dotenv').config();
 const app = express();
@@ -23,9 +24,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.post('/postdata', noteController.postdata);
+
 app.get('/getdata', noteController.getdata);
 
-// app.post('/signup', )
+app.post('/signup', userController.createUser, userController.checkUser);
+
+app.post('/login', userController.verifyUser);
 
 app.use(express.static(path.join(__dirname, 'build')));
 

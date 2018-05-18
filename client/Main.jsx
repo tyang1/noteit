@@ -2,12 +2,13 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 
 import Login from "./containers/Login.jsx";
+import Home from "./containers/Home.jsx";
 
 const Main = () => (
   <main>
     <Switch>
       <Route exact path="/" component={Login} />
-      <Route path="/home" component={Home} />
+      {/* <Route path="/home" component={Home} /> */}
     </Switch>
   </main>
 );

@@ -2,12 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
+import NoteComponent from "../components/NoteComponent.jsx";
+
 import {
-  myFirstAction,
+  addNote,
 } from "../modules/App";
 
 const mapActionCreators = {
-  myFirstAction
+  addNote,
 };
 
 const mapStateToProps = state => ({
@@ -22,8 +24,8 @@ class Home extends React.Component {
   render() {
     return (
       <div id="home">
-        <PrevNote />
-        <NewNote />
+        <NoteComponent />
+        <NoteCreate />
       </div>
     );
   }

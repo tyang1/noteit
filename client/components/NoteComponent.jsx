@@ -9,7 +9,7 @@ const NoteComponent = props => {
         img={props.img}
         edit={props.edit}
         delete={props.delete}
-        key={dix}
+        key={idx}
       />
     );
   });
@@ -20,4 +20,5 @@ const NoteComponent = props => {
       </div>
   )
 };
-export default NOteComponent;
+
+export default NoteComponent;

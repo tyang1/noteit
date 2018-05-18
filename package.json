@@ -12,11 +12,11 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "nodemon": "^1.8.1",
-    "dotenv": "^5.0.1",
     "css-loader": "^0.28.11",
+    "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "immutable": "^3.8.2",
+    "nodemon": "^1.8.1",
     "pg": "^7.4.3",
     "pg-promise": "^8.4.4",
     "react": "^16.3.2",
@@ -26,6 +26,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
     "webpack": "^4.8.3"
