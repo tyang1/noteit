@@ -6,9 +6,9 @@ const NoteComponent = props => {
   props.list.map((note, idx) => {
     notelist.push(
       <NoteDisplay
-        img={props.img}
-        edit={props.edit}
-        delete={props.delete}
+        // img = {props.img}
+        edit={props.editNote}
+        delete={props.deleteNote}
         key={idx}
       />
     );
