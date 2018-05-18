@@ -1,5 +1,5 @@
 import React from "react";
-import { reactDom } from "react-dom";
+import { render } from "react-dom";
 import App from "./App.jsx";
 import store from "./store/store";
 import { BrowserRouter } from "react-router-dom";

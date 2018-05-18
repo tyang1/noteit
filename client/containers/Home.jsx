@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import {
   myFirstAction,
 } from "../modules/App";
+import NoteComponent from "../components/NoteComponent";
 
 const mapActionCreators = {
   myFirstAction
@@ -22,8 +23,8 @@ class Home extends React.Component {
   render() {
     return (
       <div id="home">
-        <PrevNote />
-        <NewNote />
+        <NoteComponent />
+        <NoteCreate />
       </div>
     );
   }

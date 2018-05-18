@@ -9,7 +9,7 @@ const NoteComponent = props => {
         img={props.img}
         edit={props.edit}
         delete={props.delete}
-        key={dix}
+        key={idx}
       />
     );
   });
