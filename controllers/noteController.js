@@ -46,7 +46,7 @@ const noteController = {
 
   getdata : (req, res) => {
 
-  client.query('SELECT * FROM films', (err, res) => {
+  client.query('SELECT * FROM ', (err, res) => {
   if (err) {
     console.log(err);
   } else {
