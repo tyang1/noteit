@@ -11,3 +11,5 @@ const Sign = props => {
     </div>
   );
 };
+
+export default Sign;

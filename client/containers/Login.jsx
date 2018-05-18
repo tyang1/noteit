@@ -2,17 +2,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import {
-  myFirstAction,
-} from "../modules/App";
+import Sign from '../components/Sign.jsx';
 import NoteComponent from "../components/NoteComponent.jsx";
 
+
+import {
+  addNote,
+} from "../modules/App";
+
 const mapActionCreators = {
-  myFirstAction
+  addNote
 };
 
 const mapStateToProps = state => ({
-  value1: state.app.toJS().value1
+  label: state.app.toJS().label
 });
 
 class Login extends React.Component {
@@ -21,7 +24,7 @@ class Login extends React.Component {
   }
   render() {
     const labels = [];
-    props.label.map((element, index) => {
+    this.props.label.map((element, index) => {
       labels.push(<Sign label={element} />);
     });
     return <div>{labels}</div>;

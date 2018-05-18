@@ -5,6 +5,7 @@ export const DELETE_NOTE = "DELETE_NOTE";
 export const EDIT_NOTE = "EDIT_NOTE";
 
 const defaultState = Immutable.fromJS({
+  label: ['sign', 'log'],
   value1: "value",
   loggedIn: false,
   username: ""
