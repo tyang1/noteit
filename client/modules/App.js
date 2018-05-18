@@ -3,7 +3,7 @@ import Immutable from "immutable";
 export const ACTIONO = "ACTIONO";
 
 const defaultState = Immutable.fromJS({
-  key1: "value"
+  value1: "value"
 });
 
 export function myFirstAction(bool) {
@@ -16,11 +16,11 @@ export function myFirstAction(bool) {
 }
 
 export const actions = {
-    myFirstAction
-  };
+  myFirstAction
+};
 
 const ACTION_HANDLERS = {
-  [ACTIONO]: (state, action) => state.set("key1", action.payload),
+  [ACTIONO]: (state, action) => state.set("value1", action.payload)
 };
 
 export default function appReducer(state = defaultState, action) {
