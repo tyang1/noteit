@@ -1,3 +1,5 @@
+
+
 const pg = require('pg');
 require('dotenv').config();
 const bodyParser = require('body-parser');
@@ -21,11 +23,13 @@ client.connect(function(err) {
 const userController = {
 
   createUser : (req, res, next) => {
-    console.log(req.body);
+    // console.log(req.body);
 
-    
-      let {name, created, updated} = req.body;
-      let password = req.body.password;
+    if(req.body.name && req.body.password) {
+
+
+      let { name, password } = req.body;
+      //let password = req.body.password;
 
       let promise = new Promise((resolve, reject) => {
 
@@ -43,10 +47,11 @@ const userController = {
         
         promise.then(() =>{
         console.log("hashed password: ", password);
-        let q = `INSERT INTO users(name, password, created, updated) VALUES ('${name}', '${password}', '${created}', '${updated}' );`;
+        let q = `INSERT INTO users(name, password) VALUES ('${name}', '${password}');`;
         console.log("Our query is read: ", q);
 
         client.query(q, (err, results) => {
+            console.log('query');
           if (err) console.log(err);
           else console.log(results);
         });
@@ -55,6 +60,13 @@ const userController = {
             console.log("err promise: ", err);
 
         })
+    }
+    else {
+        res.redirect(400, '/signup');
+        res.end();
+    }
+
+    // client.end();
       // });
   // Promise.all(promise)
   // .then(() => {
@@ -71,9 +83,9 @@ const userController = {
   if (err) {
     console.log(err);
   } else {
-    res.json(results);
+    res.send(results.rows);
   }
-  client.end();
+
 });
   },
 
@@ -81,23 +93,40 @@ verifyUser : (req, res) => {
     let candidatePassword = req.body.password;
     let password;
 
-    client.query(`SELECT password FROM users WHERE name = '${req.body.name}';`, (err, results) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log(results)
-          password = results;
+    let promiseVerify = new Promise((resolve, reject) => {
+
+    client.query(`SELECT password FROM users WHERE (name = '${req.body.name}');`, (err, results) => {
+        console.log("username: ", req.body.name)
+        if (err) reject();
+        if(results.rows[0] === undefined){
+            console.log("result: ", results);
+            res.redirect(400, '/login');
+            }
+        else{
+            password = results.rows[0].password;
+            console.log("password: ", password);
+            resolve();
         }
+        
     });
+    
+});
+
+    console.log("CandidatePassword: ", candidatePassword);
 
 
+    promiseVerify.then(() => {
     bcrypt.compare(candidatePassword, password, function(err, isMatch) {
-            if (err) console.log(err);
+            if (err) console.log("compare error: ", err);
             else if (isMatch) res.redirect(200, '/secret');
             else if(!isMatch) res.redirect(400, '/login');
         });
+    }).catch(err =>{
+        console.log("err promiseVerify: ", err);
+    });
+    // client.end();
 
-}
+    }
 }
 
 module.exports = userController; 
