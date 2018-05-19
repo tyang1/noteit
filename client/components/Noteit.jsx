@@ -1,5 +1,15 @@
 import React from "react";
 
+var request = require('request');
+var cheerio = require('cheerio');
+
+request('http://www.google.com/', function(err, resp, html) {
+        if (!err){
+          const $ = cheerio.load(html);
+          console.log(html); 
+      }
+});
+
 // function TestSelection () {
 //   if (window.getSelection) {  // all browsers, except IE before version 9
 //       var selectionRange = window.getSelection ();
@@ -35,10 +45,13 @@ class Noteit extends React.Component {
     document.getElementById('testing').style.backgroundColor = "yellow";
   }
 
+
   render() {
     return (
       <div>
         <embed id="iframez" src="https://www.wikipedia.org/" />
+        <embed id="yelp" src="https://www.yelp.com/" width="640" height="480"/>
+       <embed id="google" src=" https://www.google.com/"width="640" height="480" />
         <div id="options-box">
           <div id="testing">Tools:</div>
           <input
@@ -61,6 +74,18 @@ class Noteit extends React.Component {
 //     <embed id="iframez" src="https://www.wikipedia.org/" />
 //     <div id="options-box">
 //       <input checked="checked" name="highlight" type="radio" value="true" />Highlighter<br />
+//       <input name="highlight" type="radio" value="true" />UnHighlighter
+//       <br />
+//       <button>Save</button>
+//     </div>
+//   </div>
+// );
+//   <div>
+//     <embed id="iframez" src="https://www.wikipedia.org/" />
+//     <embed id="yelp" src="https://www.yelp.com/" width="640" height="480"/>
+//     <embed id="google" src=" https://www.google.com/"width="640" height="480" />
+//     <div id="options-box">
+//       <input checked="checked" name="highlight" type="radio" value="true" />Highlighter<br/>
 //       <input name="highlight" type="radio" value="true" />UnHighlighter
 //       <br />
 //       <button>Save</button>
