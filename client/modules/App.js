@@ -2,6 +2,7 @@ import Immutable from "immutable";
 import axios from "axios";
 
 export const CREATE_USER = 'CREATE_USER';
+export const ADD_USER = 'ADD_USER';
 export const ADD_NOTE = "ADD_NOTE";
 export const DELETE_NOTE = "DELETE_NOTE";
 export const EDIT_NOTE = "EDIT_NOTE";
@@ -11,7 +12,8 @@ const defaultState = Immutable.fromJS({
   value1: "value",
   loggedIn: false,
   username: "",
-  noteList: []
+  noteList: [],
+  // clickedNode: nodethatwewant
   //   noteList: { 'www.wikipedia.com': {
   //       img: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/Note.svg',
 
@@ -43,6 +45,7 @@ export function deleteNote(note_id) {
 };
 
 export function createUser(event) {
+  let load;
   event.preventDefault();
   return dispatch => {
     axios
@@ -51,10 +54,12 @@ export function createUser(event) {
         password: event.target.password.value,
       })
       .then(res => {
-        console.log("res", res);
+        if (res) load = true;
+        else load = false;
+        console.log('load:',load);
         return dispatch({
           type: ADD_USER,
-          payload: res // expecting boolean
+          payload: load // expecting boolean
         });
       });
   };

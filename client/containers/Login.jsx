@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom';
 
 import Sign from "../components/Sign.jsx";
 import Redirect from "../components/Redirect.jsx";
@@ -13,7 +14,8 @@ const mapActionCreators = {
 };
 
 const mapStateToProps = state => ({
-  label: state.app.toJS().label
+  label: state.app.toJS().label,
+  loggedIn: state.app.toJS().loggedIn,
 });
 
 class Login extends React.Component {
@@ -21,6 +23,7 @@ class Login extends React.Component {
     super(props);
   }
   render() {
+    if (this.props.loggedIn) this.props.router.push('EditPage');
     const labels = [];
     this.props.label.map((element, index) => {
       labels.push(<Sign label={element} createUser={this.props.createUser} />);
