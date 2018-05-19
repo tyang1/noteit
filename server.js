@@ -47,5 +47,3 @@ app.get('/notes/all', noteController.getAllNotes);
 // app.delete('/notes/:note_id', );
 
 app.use(express.static(path.join(__dirname, 'build')));
-
-
