@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // User routing
-app.post('/signup', userController.createUser, userController.checkUser);
+app.post('/signup', userController.verifyUsername, userController.createUser);
 app.post('/login', userController.verifyUser);
 
 // Note routing
