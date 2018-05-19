@@ -23,7 +23,7 @@ client.connect(function(err) {
 const userController = {
 
   createUser : (req, res, next) => {
-    console.log(req.body);
+    // console.log(req.body);
 
     if(req.body.name && req.body.password) {
 
@@ -51,6 +51,7 @@ const userController = {
         console.log("Our query is read: ", q);
 
         client.query(q, (err, results) => {
+            console.log('query');
           if (err) console.log(err);
           else console.log(results);
         });
