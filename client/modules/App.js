@@ -13,11 +13,7 @@ const defaultState = Immutable.fromJS({
   loggedIn: false,
   username: "",
   noteList: [],
-  // clickedNode: nodethatwewant
-  //   noteList: { 'www.wikipedia.com': {
-  //       img: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/Note.svg',
 
-  //   }},
 });
 
 export function deleteNote(note_id) {

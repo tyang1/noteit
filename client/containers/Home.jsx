@@ -28,6 +28,7 @@ class Home extends React.Component {
   render() {
     return (
       <div id="home">
+        <Noteit editNote = {props.editNote}/>
         <NoteComponent noteList = {props.noteList} deleteNote = {props.deleteNote} editNote={props.editNote} />
         <NoteCreate noteList = {props.noteList} addNote = {props.addNote} />
       </div>

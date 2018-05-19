@@ -5,7 +5,9 @@ import React from 'react';
 const Redirect = withRouter(({ history }) => (
   <button
     type='button'
-    onClick={() => { history.push('/note') }}
+
+    onClick={() => { history.push('note') }}
+
   >
     Click Me!
   </button>
