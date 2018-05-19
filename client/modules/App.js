@@ -18,16 +18,29 @@ const defaultState = Immutable.fromJS({
   //   }},
 });
 
-<<<<<<< HEAD
-export function deleteNote(url) {
-  fetch(, {
-    method = "DELETE"
+export function deleteNote(note_id) {
+  fetch('notes/:note_id', {
+    method : "DELETE",
+    body : JSON.stringify({_id :note_id})
   }).then(response => {
+    console.log(response);
     return response.json()
   }).then((jsonRes) => {
     //use the jsonRes.username and remove the element from the noteList
+    noteList = state.app.toJS().noteList.slice();
+    for(let n = 0 ; n < noteList.length; n++){
+      if(noteList[n][_id]=== note_id){
+        noteList.splice(n,1);
+      }
+    }
   })
-=======
+    return dispatch => {
+      return dispatch({
+        type: DELETE_NOTE,
+        payload: noteList
+    });
+};
+};
 export function createUser(event) {
   event.preventDefault();
   return dispatch => {
@@ -46,27 +59,20 @@ export function createUser(event) {
   };
 }
 
-export function deleteNote(noteId) {
->>>>>>> 4f5f9c1d35217e2a938dd453ce71d014eb9414b7
-  return dispatch => {
-    return dispatch({
-      type: DELETE_NOTE,
-      payload: noteList
-    });
-  };
-}
 
 export function addNote(url) {
   const newNote = {
-    noteID: "",
-    html: "",
-    css: "",
-    createdAt: "",
-    title: ""
+    noteID: null,
+    url: null ,
+    html: null,
+    css: null,
+    createdAt: null,
+    title: null
   };
   // noteList = state.get(noteList).slice();
   fetch(url, {
-    method: "POST"
+    method: "POST",
+    body: JSON.stringify({url : url})
   })
     .then(response => {
       return response.json();
@@ -91,8 +97,17 @@ export function addNote(url) {
   };
 }
 
-export function editNote(url) {
-  fetch(url);
+export function editNote(note_id) {
+  fetch('notes/:note_id', {
+    method : "UPDATE",
+    body : JSON.stringify({_id :note_id})
+  }).then(response => {
+    console.log(response);
+    return response.json()
+  }).then((jsonRes) => {
+    //use the jsonRes.username and remove the element from the noteList
+    noteList = state.app.toJS().noteList.slice();
+  })
   return dispatch => {
     return dispatch({
       type: EDIT_NOTE,
@@ -110,12 +125,8 @@ export const actions = {
 };
 
 const ACTION_HANDLERS = {
-<<<<<<< HEAD
   [ADD_NOTE]: (state, action) => state.set("noteList", action.payload),
-=======
   [CREATE_USER]: (state, action) => state.set("loggedIn", action.payload),
-  [ADD_NOTE]: (state, action) => state.set("username", action.payload),
->>>>>>> 4f5f9c1d35217e2a938dd453ce71d014eb9414b7
   [DELETE_NOTE]: (state, action) => state.set("value1", action.payload),
   [EDIT_NOTE]: (state, action) => state.set("value1", action.payload)
 };
