@@ -1,5 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
+
 
 import Login from "./containers/Login.jsx";
 import Home from "./containers/Home.jsx";

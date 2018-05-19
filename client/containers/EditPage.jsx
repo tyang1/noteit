@@ -16,4 +16,4 @@ class EditPage extends React.Component {
   }
 }
 
-export default NoteComponent;
+export default EditPage;
