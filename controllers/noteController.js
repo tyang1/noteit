@@ -22,7 +22,7 @@ client.connect(function (err) {
   if (err) {
     console.log("client connect: ", err);
   } else {
-    console.log('success?');
+   // console.log('success?');
   }
 });
 
@@ -30,8 +30,6 @@ client.connect(function (err) {
 const noteController = {
 
   getAllNotes(req, res) {
-    console.log('hitting getAllNotes in notesController');
-
     client.query('SELECT * FROM notes;', (err, results) => {
       console.log('in notes');
       if (err) {
@@ -43,17 +41,56 @@ const noteController = {
     });
   },
 
-  // getNotesByUser: {
-  // },
+  getNotesByUser(req, res) {
+    const userID = req.body.user_id;
 
-  // getNoteByID: {
-  // },
+    client.query(`SELECT * FROM notes WHERE user_id = ${userID}`, (err, results) => {
+      console.log('in notes');
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(results.rows);
+      }
+      client.end();
+    })
+  },
 
-  // createNote: {
-  // },
+  getNoteByID(req, res) {
+    const noteId = req.body.note_id;
 
-  // deleteNote: {
-  // },
+    client.query(`SELECT * FROM notes WHERE _id = ${noteID}`, (err, results) => {
+      if (err) {
+        console.log('error:', err);
+      } else {
+        res.sed(results);
+      }
+    });
+  },
+
+  createNote(req, res) {
+    let { _id, title, url, html, css, user_id, } = req.body;
+    let q = `INSERT INTO notes VALUES (${_id}, '${title}', '${url}', '${html}', '${css}', ${user_id})`
+    console.log(q);
+    client.query(q, (err, results) => {
+      if (err) {
+        console.log('error:', err);
+        res.end();
+      } else {
+        res.send(results);
+      }
+    });
+  },
+
+  deleteNote(req, res) {
+    let noteID = req.body.note_id;
+    client.query(`DELETE FROM notes WHERE _id = ${noteID}`, (err, results) => {
+      if (err) {
+        console.log('error:', err);
+      } else {
+        res.send(results);
+      }
+    });
+  },
 
   // updateNote: {
   // }
