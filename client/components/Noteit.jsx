@@ -30,12 +30,10 @@ const Noteit = props => (
 
 
   <div>
-    <iframe id="iframez" src="https://www.wikipedia.org/"></iframe>
-    <script src = "highlight.js">
-      </script>
+    <embed id="iframez" src="https://www.wikipedia.org/" />
     <div id="options-box">
       <input checked="checked" name="highlight" type="radio" value="true" />Highlighter<br/>
-      <input checked="checked" name="highlight" type="radio" value="true" />UnHighlighter
+      <input name="highlight" type="radio" value="true" />UnHighlighter
       <br />
       <button>Save</button>
     </div>

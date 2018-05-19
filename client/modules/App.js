@@ -50,11 +50,12 @@ export function createUser(event, cb) {
         password: event.target.password.value,
       })
       .then(res => {
+        console.log('res:',res);
         if (res) {
           load = true
           cb();
         } else load = false;
-        console.log('load:',load);
+        // console.log('load:',load);
         dispatch({
           type: CREATE_USER,
           payload: load // expecting boolean
@@ -74,11 +75,12 @@ export function verifyUser(event, cb) {
         password: event.target.password.value,
       })
       .then(res => {
-        if (res) {
+        // console.log('res:', res);
+        if (res.data === true) {
           load = true
           cb();
         } else load = false;
-        console.log('load:',load);
+        // console.log('load:',load);
         dispatch({
           type: VERIFY_USER,
           payload: load // expecting boolean
