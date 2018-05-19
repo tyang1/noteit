@@ -35,15 +35,16 @@ const noteController = {
   getAllNotes(req, res) {
     console.log('hitting getAllNotes in notesController');
 
-    client.query('SELECT * FROM notes', (err, results) => {
+    client.query('SELECT * FROM notes;', (err, results) => {
       if (err) {
         console.log(err);
       } else {
+        console.log('in notes');
         res.json(results);
       }
       client.end();
     });
-  },
+  }
 
   // getNotesByUser: {
   // },
@@ -59,7 +60,6 @@ const noteController = {
 
   // updateNote: {
   // }
-
 }
 
 module.exports = noteController; 
