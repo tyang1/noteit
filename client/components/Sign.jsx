@@ -18,6 +18,7 @@ const Sign = props => {
         <input type="password" name="password" placeholder="password" />
         <button type="submit">Submit</button>
       </form>
+      <br />
     </div>
   );
 };
