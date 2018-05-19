@@ -42,11 +42,12 @@ export function deleteNote(note_id) {
     });
 };
 };
+
 export function createUser(event) {
   event.preventDefault();
   return dispatch => {
     axios
-      .post("/signup", {
+      .post("signup", {
         name: event.target.username.value,
         password: event.target.password.value,
       })
@@ -59,7 +60,6 @@ export function createUser(event) {
       });
   };
 }
-
 
 export function addNote(url) {
   const newNote = {
