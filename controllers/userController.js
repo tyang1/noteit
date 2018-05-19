@@ -21,42 +21,49 @@ client.connect(function (err) {
 const userController = {
 
   createUser: (req, res, next) => {
-    console.log('inside createUser');
-    let { name, created, updated } = req.body;
-    let password = req.body.password;
+    console.log('inside crate user');
 
-    let promise = new Promise((resolve, reject) => {
+    if (req.body.name && req.body.password) {
 
-      bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
-        if (err) return console.log("Salt gen: ", err);
-        bcrypt.hash(password, salt, function (err, hash) {
-          if (err) return console.log("Hash gen: ", err);
-          else {
-            password = hash;
-            resolve();
-          }
+      let { name, password } = req.body;
+      //let password = req.body.password;
+
+      let promise = new Promise((resolve, reject) => {
+
+        bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+          if (err) return console.log("Salt gen: ", err);
+          bcrypt.hash(password, salt, function (err, hash) {
+            if (err) return console.log("Hash gen: ", err);
+            else {
+              password = hash;
+              resolve();
+            }
+          });
         });
-      });
-    });
+      })
 
-    promise.then(() => {
-      console.log("hashed password: ", password);
-      let q = `INSERT INTO users(name, password, created, updated) VALUES ('${name}', '${password}', '${created}', '${updated}' );`;
-      console.log("Our query is read: ", q);
+      promise.then(() => {
+        console.log("hashed password: ", password);
+        let q = `INSERT INTO users(name, password) VALUES ('${name}', '${password}');`;
+        console.log("Our query is read: ", q);
 
-      client.query(q, (err, results) => {
-        console.log('in query');
-        if (err) {
-          console.log(err);
-        } else {
-          console.log(results);
-        }
-      });
-      next();
-    }).catch(err => {
-      console.log("err promise: ", err);
+        client.query(q, (err, results) => {
+          console.log('inside query');
+          if (err) console.log(err);
+          else console.log(results);
+        });
+        next();
+      }).catch(err => {
+        console.log("err promise: ", err);
 
-    })
+      })
+    }
+    else {
+      res.redirect(400, '/signup');
+      // res.end();
+    }
+
+    // client.end();
     // });
     // Promise.all(promise)
     // .then(() => {
@@ -73,9 +80,9 @@ const userController = {
       if (err) {
         console.log(err);
       } else {
-        res.json(results);
+        res.send(results.rows);
       }
-      client.end();
+
     });
   },
 
@@ -83,21 +90,38 @@ const userController = {
     let candidatePassword = req.body.password;
     let password;
 
-    client.query(`SELECT password FROM users WHERE name = '${req.body.name}';`, (err, results) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(results)
-        password = results;
-      }
+    let promiseVerify = new Promise((resolve, reject) => {
+
+      client.query(`SELECT password FROM users WHERE (name = '${req.body.name}');`, (err, results) => {
+        console.log("username: ", req.body.name)
+        if (err) reject();
+        if (results.rows[0] === undefined) {
+          console.log("result: ", results);
+          res.redirect(400, '/login');
+        }
+        else {
+          password = results.rows[0].password;
+          console.log("password: ", password);
+          resolve();
+        }
+
+      });
+
     });
 
+    console.log("CandidatePassword: ", candidatePassword);
 
-    bcrypt.compare(candidatePassword, password, function (err, isMatch) {
-      if (err) console.log(err);
-      else if (isMatch) res.redirect(200, '/secret');
-      else if (!isMatch) res.redirect(400, '/login');
+
+    promiseVerify.then(() => {
+      bcrypt.compare(candidatePassword, password, function (err, isMatch) {
+        if (err) console.log("compare error: ", err);
+        else if (isMatch) res.redirect(200, '/secret');
+        else if (!isMatch) res.redirect(400, '/login');
+      });
+    }).catch(err => {
+      console.log("err promiseVerify: ", err);
     });
+    // client.end();
 
   }
 }

@@ -4,9 +4,9 @@ import React from "react";
 
 const NoteDisplay = props => (
   <div id="noteBox">
-    <p> Note ID: <span>{props.info.img}</span></p>
-    <button className = {props.info.noteID}>Edit</button>
-    <button  className= {props.info.noteID}>Delete</button>
+    <p> Note ID: <span>{props.noteList.img}</span></p>
+    <button className = {props.noteList.noteID}>Edit</button>
+    <button  className= {props.noteList.noteID}>Delete</button>
   </div>
 );
 
