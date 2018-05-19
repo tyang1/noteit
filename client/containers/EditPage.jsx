@@ -2,6 +2,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
+
+import {
+  } from "../modules/App";
+  
+
+
+const mapActionCreators = {
+    
+};
+
+const mapStateToProps = state => ({
+   
+});
+
 class EditPage extends React.Component{
     constructor(props){
         super(props);

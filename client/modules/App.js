@@ -11,7 +11,8 @@ const defaultState = Immutable.fromJS({
   value1: "value",
   loggedIn: false,
   username: "",
-  noteList: []
+  noteList: [],
+  selectedNote: ""
   //   noteList: { 'www.wikipedia.com': {
   //       img: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/Note.svg',
 
