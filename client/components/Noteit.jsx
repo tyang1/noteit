@@ -16,23 +16,23 @@ import React from "react";
 //   }
 // }
 
+// var t = '';
+//     function gText(e) {
+//     t = (document.all) ? document.selection.createRange().text : document.getSelection()};
 
+//     document.getElementById('input').value = t;
+
+
+// document.onmouseup = gText;
+// if (!document.all) document.captureEvents(Event.MOUSEUP);
 
 const Noteit = props => (
+
+
   <div>
-    <embed id="iframez" src="https://www.wikipedia.org/" />
-    <script>
-    var t = '';
-function gText(e) {
-    t = (document.all) ? document.selection.createRange().text : document.getSelection()};
-
-    document.getElementById('input').value = t;
-
-
-document.onmouseup = gText;
-if (!document.all) document.captureEvents(Event.MOUSEUP);
+    <iframe id="iframez" src="https://www.wikipedia.org/"></iframe>
+    <script src = "highlight.js">
       </script>
-
     <div id="options-box">
       <input checked="checked" name="highlight" type="radio" value="true" />Highlighter<br/>
       <input checked="checked" name="highlight" type="radio" value="true" />UnHighlighter

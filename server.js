@@ -32,20 +32,18 @@ app.post('/login', userController.verifyUser);
 app.get('/notes/all', noteController.getAllNotes);
 
 // get one note by note id
-// app.get('/notes/:note_id', );
+app.get('/notes/:note_id', noteController.getNoteByID);
 
 // get all notes belonging to one user
-//  app.get('/notes/:user_id', );
+app.get('/notes/:user_id', noteController.getNotesByUser);
 
 // create a note
-// app.post('/notes/create', );
+app.post('/notes/create', noteController.createNote);
 
 // update a note
 // app.put('/notes/:note_id', );
 
 // delete a note
-// app.delete('/notes/:note_id', );
+app.delete('/notes/delete', noteController.deleteNote);
 
 app.use(express.static(path.join(__dirname, 'build')));
-
-

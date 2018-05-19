@@ -14,18 +14,15 @@ const pg = require('pg');
 require('dotenv').config();
 const bodyParser = require('body-parser');
 
-const client = new pg.Client({
-  user: process.env.PGUSER,
-  password: process.env.PGPASSWORD,
-  database: process.env.PGDATABASE,
-  port: process.env.PGPORT,
-  host: process.env.PGHOST,
-  ssl: true
-});
+const connectionString = 'postgres://aupadlon:R9jDOCvYOaWQN_KEVFDez3UOVzV2tRIb@elmer.db.elephantsql.com:5432/aupadlon'
+
+const client = new pg.Client({connectionString})
 
 client.connect(function (err) {
   if (err) {
     console.log("client connect: ", err);
+  } else {
+   // console.log('success?');
   }
 });
 
@@ -33,33 +30,70 @@ client.connect(function (err) {
 const noteController = {
 
   getAllNotes(req, res) {
-    console.log('hitting getAllNotes in notesController');
-
-    client.query('SELECT * FROM notes', (err, results) => {
+    client.query('SELECT * FROM notes;', (err, results) => {
+      console.log('in notes');
       if (err) {
         console.log(err);
       } else {
-        res.json(results);
+        res.json(results.rows);
       }
       client.end();
     });
   },
 
-  // getNotesByUser: {
-  // },
+  getNotesByUser(req, res) {
+    const userID = req.body.user_id;
 
-  // getNoteByID: {
-  // },
+    client.query(`SELECT * FROM notes WHERE user_id = ${userID}`, (err, results) => {
+      console.log('in notes');
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(results.rows);
+      }
+      client.end();
+    })
+  },
 
-  // createNote: {
-  // },
+  getNoteByID(req, res) {
+    const noteId = req.body.note_id;
 
-  // deleteNote: {
-  // },
+    client.query(`SELECT * FROM notes WHERE _id = ${noteID}`, (err, results) => {
+      if (err) {
+        console.log('error:', err);
+      } else {
+        res.sed(results);
+      }
+    });
+  },
+
+  createNote(req, res) {
+    let { _id, title, url, html, css, user_id, } = req.body;
+    let q = `INSERT INTO notes VALUES (${_id}, '${title}', '${url}', '${html}', '${css}', ${user_id})`
+    console.log(q);
+    client.query(q, (err, results) => {
+      if (err) {
+        console.log('error:', err);
+        res.end();
+      } else {
+        res.send(results);
+      }
+    });
+  },
+
+  deleteNote(req, res) {
+    let noteID = req.body.note_id;
+    client.query(`DELETE FROM notes WHERE _id = ${noteID}`, (err, results) => {
+      if (err) {
+        console.log('error:', err);
+      } else {
+        res.send(results);
+      }
+    });
+  },
 
   // updateNote: {
   // }
-
 }
 
 module.exports = noteController; 
