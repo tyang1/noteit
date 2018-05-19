@@ -6,10 +6,12 @@ import NoteComponent from "../components/NoteComponent.jsx";
 
 import {
   addNote,
+  deleteNote,
 } from "../modules/App";
 
 const mapActionCreators = {
   addNote,
+  deleteNote,
 };
 
 const mapStateToProps = state => ({
