@@ -21,7 +21,7 @@ export function deleteNote(note_id) {
     method : "DELETE",
     body : JSON.stringify({_id :note_id})
   }).then(response => {
-    console.log(response);
+    // console.log(response);
     return response.json()
   }).then((jsonRes) => {
     //use the jsonRes.username and remove the element from the noteList
@@ -50,8 +50,8 @@ export function createUser(event, cb) {
         password: event.target.password.value,
       })
       .then(res => {
-        console.log('res:',res);
-        if (res) {
+        // console.log('res:',res);
+        if (res.data === true) {
           load = true
           cb();
         } else load = false;
@@ -132,7 +132,7 @@ export function editNote(note_id) {
     method : "UPDATE",
     body : JSON.stringify({_id :note_id})
   }).then(response => {
-    console.log(response);
+    // console.log(response);
     return response.json()
   }).then((jsonRes) => {
     //use the jsonRes.username and remove the element from the noteList
