@@ -9,7 +9,7 @@ const bcrypt = require('bcryptjs');
 
 const connectionString = 'postgres://aupadlon:R9jDOCvYOaWQN_KEVFDez3UOVzV2tRIb@elmer.db.elephantsql.com:5432/aupadlon'
 
-const client = new pg.Client({connectionString})
+const client = new pg.Client({ connectionString })
 
 client.connect(function (err) {
   if (err) {
@@ -116,9 +116,13 @@ const userController = {
 
     promiseVerify.then(() => {
       bcrypt.compare(candidatePassword, password, function (err, isMatch) {
-        if (err) console.log("compare error: ", err);
-        else if (isMatch) res.redirect(200, '/secret');
-        else if (!isMatch) res.redirect(400, '/login');
+        if (err) {
+          console.log("compare error: ", err);
+        } else if (isMatch) {
+          res.send(true);
+        } else if (!isMatch) {
+          res.send(false);
+        }
       });
     }).catch(err => {
       console.log("err promiseVerify: ", err);
