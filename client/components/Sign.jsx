@@ -2,11 +2,13 @@ import React, { PropTypes } from "react";
 
 const Sign = props => {
   let submit;
+  let redirectToReferrer = false;
   let text = 'Log in:';
   if (props.label === "sign") {
     text = 'Sign up:';
     submit = props.createUser
   };
+  
   return (
     <div id="log">
       <form class="user-form" onSubmit={submit}>

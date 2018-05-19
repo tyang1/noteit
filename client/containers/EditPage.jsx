@@ -1,15 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import Noteit from '../components/Noteit.jsx'
 
 
 import {
+    editNote
   } from "../modules/App";
   
 
 
 const mapActionCreators = {
-    
+    editNote
 };
 
 const mapStateToProps = state => ({
@@ -23,12 +25,11 @@ class EditPage extends React.Component{
     render(){
         return(
             <div id = 'iframe'>
-                <Hightlight />
-                <Iframe />
+                <Noteit editNote = {props.editNote}/>
             </div>
 
         )
     }
 }
 
-export default NoteComponent;
+export default EditPage;
