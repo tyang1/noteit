@@ -121,7 +121,7 @@ const userController = {
         } else if (isMatch) {
           res.send(true);
         } else if (!isMatch) {
-          res.redirect(false);
+          res.send(false);
         }
       });
     }).catch(err => {
